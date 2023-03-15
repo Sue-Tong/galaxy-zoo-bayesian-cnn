@@ -3,6 +3,7 @@ import sys
 
 import tensorflow as tf
 from tensorflow.python.saved_model import signature_constants
+from tensorflow.keras.optimizers import Adam
 
 
 def estimator_wrapper(features, labels, mode, params):
@@ -18,7 +19,7 @@ class BayesianModel():
             self,
             image_dim,
             learning_rate=0.001,
-            optimizer=tf.train.AdamOptimizer,
+            optimizer=Adam,
             conv1_filters=32,
             conv1_kernel=1,
             conv1_activation=tf.nn.relu,
