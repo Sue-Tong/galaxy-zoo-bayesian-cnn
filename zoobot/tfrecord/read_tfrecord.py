@@ -35,7 +35,7 @@ def load_examples_from_tfrecord(tfrecord_locs, feature_spec, n_examples=None, ma
 
 def matrix_feature_spec(size, channels):  # used for predict mode
     return {
-        "matrix": tf.FixedLenFeature([], tf.string)}
+        "matrix": tf.io.FixedLenFeature([], tf.string)}
 
 
 def matrix_label_feature_spec(size, channels, float_label=True):
@@ -44,71 +44,71 @@ def matrix_label_feature_spec(size, channels, float_label=True):
     else:
         label_dtype = tf.int64
     return {
-        "matrix": tf.FixedLenFeature([], tf.string),
-        "label": tf.FixedLenFeature((), label_dtype)}
+        "matrix": tf.io.FixedLenFeature([], tf.string),
+        "label": tf.io.FixedLenFeature((), label_dtype)}
 
 
 def custom_feature_spec(features_requested):
     # TODO properly, with error checking
     features = {}
     if 'matrix' in features_requested:
-        features["matrix"] = tf.FixedLenFeature([], tf.string)
+        features["matrix"] = tf.io.FixedLenFeature([], tf.string)
     if 'label' in features_requested:
-        features["label"] = tf.FixedLenFeature([], tf.int64)
+        features["label"] = tf.io.FixedLenFeature([], tf.int64)
     if 'total_votes' or 'count' in features_requested:
-        features["total_votes"] = tf.FixedLenFeature([], tf.int64)
+        features["total_votes"] = tf.io.FixedLenFeature([], tf.int64)
     if 'id_str' in features_requested:
-        features["id_str"] = tf.FixedLenFeature([], tf.string)
+        features["id_str"] = tf.io.FixedLenFeature([], tf.string)
     return features
 
 
 def matrix_label_counts_feature_spec():
     return {
-        "matrix": tf.FixedLenFeature([], tf.string),
-        "label": tf.FixedLenFeature((), tf.int64),
-        "total_votes": tf.FixedLenFeature([], tf.int64)
+        "matrix": tf.io.FixedLenFeature([], tf.string),
+        "label": tf.io.FixedLenFeature((), tf.int64),
+        "total_votes": tf.io.FixedLenFeature([], tf.int64)
     }
 
 
 def id_label_counts_feature_spec():
     return {
-        "id_str": tf.FixedLenFeature((), tf.string),
-        "label": tf.FixedLenFeature((), tf.int64),
-        "total_votes": tf.FixedLenFeature([], tf.int64)
+        "id_str": tf.io.FixedLenFeature((), tf.string),
+        "label": tf.io.FixedLenFeature((), tf.int64),
+        "total_votes": tf.io.FixedLenFeature([], tf.int64)
     }
 
 
 def matrix_id_feature_spec(size, channels):
     return {
-        "matrix": tf.FixedLenFeature([], tf.string),
-        "id_str": tf.FixedLenFeature((), tf.string)
+        "matrix": tf.io.FixedLenFeature([], tf.string),
+        "id_str": tf.io.FixedLenFeature((), tf.string)
         }
 
 
 def matrix_label_id_feature_spec(size, channels):
     return {
-        "matrix": tf.FixedLenFeature([], tf.string),
-        "label": tf.FixedLenFeature((), tf.float32),
-        "id_str": tf.FixedLenFeature((), tf.string)
+        "matrix": tf.io.FixedLenFeature([], tf.string),
+        "label": tf.io.FixedLenFeature((), tf.float32),
+        "id_str": tf.io.FixedLenFeature((), tf.string)
         }
 
 
 def id_feature_spec():
-    return {"id_str": tf.FixedLenFeature((), tf.string)}
+    return {"id_str": tf.io.FixedLenFeature((), tf.string)}
 
 
 def id_label_feature_spec():
     return {
-        "label": tf.FixedLenFeature((), tf.float32),
-        "id_str": tf.FixedLenFeature((), tf.string)
+        "label": tf.io.FixedLenFeature((), tf.float32),
+        "id_str": tf.io.FixedLenFeature((), tf.string)
         }
 
 
 # not required, use tf.parse_single_example directly
 # def parse_example(example, size, channels):
 #     features = {
-#         'matrix': tf.FixedLenFeature((size * size * channels), tf.float32),
-#         'label': tf.FixedLenFeature([], tf.int64),
+#         'matrix': tf.io.FixedLenFeature((size * size * channels), tf.float32),
+#         'label': tf.io.FixedLenFeature([], tf.int64),
 #         }
 
 #     return tf.parse_single_example(example, features=features)
